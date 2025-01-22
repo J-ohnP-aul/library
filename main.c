@@ -58,11 +58,9 @@ int main()
 					printf("\nbook %d",i+1);
 					printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
 				}else{
-					printf("not availabe\n");
 					continue;
 				}
 			}
-			displayMenu();
 			break;
 						
 	}
@@ -108,7 +106,7 @@ void displayMenu()
 int searchBook()
 {	
 	int id;
-	printf("\nEnter the book id..eg soen105 id-105\neter the id:_");
+	printf("\nEnter the book id..eg soen105 id-105\nenter the id:_");
 	scanf("%d",&id);
 	return id;
 }
