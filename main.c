@@ -23,6 +23,7 @@ struct book comp1 = {"OperatingSystems", "modeWaOS", 113};
 void displayMenu();
 // void displayBook();
 //void addBook(char name,char title, char auther, int id);
+void readLibRules();
 int searchBook();
 void issueBook(int opt);
 char returnBook(int opt);
@@ -62,6 +63,8 @@ int main()
 				}
 			}
 			break;
+		case 3:
+			readLibRules();
 						
 	}
 }
@@ -71,7 +74,7 @@ void displayMenu()
 	printf("\n\t********** Welcome to library plartfom  ********");
 	printf("\n\t1.Display books");
 	printf("\n\t2.Search books");
-	printf("\n\t3.Add a book");
+	printf("\n\t3.read Library rules");
 	printf("\n\t4.issue Book");
 	printf("\n\t5.Return book");
 	printf("\n\t6.Exit\n\n\tChoose the options:_ ");
@@ -110,5 +113,21 @@ int searchBook()
 	scanf("%d",&id);
 	return id;
 }
+void readLibRules(){
+	FILE *pF = fopen("/home/noble/Desktop/c-files/poem.txt", "r");
+    char buffer[255];
 
+    if(pF == NULL){
+        printf("unable to open the file\n");
+    }else{
+        while(fgets(buffer, 255, pF) != NULL)        
+        {
+            printf("%s", buffer);   
+        }
+    }
+
+    
+    
+    fclose(pF);
+}
 
