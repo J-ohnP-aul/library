@@ -34,39 +34,42 @@ int main()
 	struct book books[] = {math, soen, phys, comp, soen1, comp1};
 	int opt,idSearch;
 
-	displayMenu();
-	scanf("%d",&opt);
-	
-	switch(opt)
-	{
-		case 1:
-			// system("clear");
-			printf("\e[1;1H\e[2J");//ANSI escape seq
-			// displayBook();
-			for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
-			{
-	 			printf("\nbook %d",i+1);
- 				printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
- 			}	
-			break;
-		case 2:
-			idSearch =  searchBook();
-			for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
-			{
-				if(idSearch == books[i].id)
+	do{
+
+		displayMenu();
+		scanf("%d",&opt);
+		
+		switch(opt)
+		{
+			case 1:
+				// system("clear");
+				printf("\e[1;1H\e[2J");//ANSI escape seq
+				// displayBook();
+				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
 				{
-					printf("Available!!");
 					printf("\nbook %d",i+1);
 					printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
-				}else{
-					continue;
+				}	
+				break;
+			case 2:
+				idSearch =  searchBook();
+				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
+				{
+					if(idSearch == books[i].id)
+					{
+						printf("Available!!");
+						printf("\nbook %d",i+1);
+						printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
+					}else{
+						continue;
+					}
 				}
-			}
-			break;
-		case 3:
-			readLibRules();
-						
-	}
+				break;
+			case 3:
+				readLibRules();
+							
+		}
+	}while(opt);
 }
 void displayMenu()
 {
