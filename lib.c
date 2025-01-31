@@ -20,6 +20,7 @@ struct book soen1 = {"structProg","Benjamin", 102};
 struct book comp1 = {"OperatingSystems", "modeWaOS", 113};
 
 void displayMenu();
+int inptDta(void);
 void login();
 void readLibRules();
 int searchBook();
@@ -32,7 +33,7 @@ int main()
    	int opt,idSearch;
     do{
 		displayMenu();
-		scanf("%d",&opt);
+		opt = inptDta();
         if(opt == 1)
         {   system("clear");
             // printf("\e[1;1H\e[2J");//ANSI escape seq
@@ -65,10 +66,12 @@ int main()
         }else if(opt == 3){
 				readLibRules();
         }else if(opt == 4){
-                login();}           
-        // }else if(opt == 6){
-        //     printf("\n\t\tBYE BYE !!!");
-        // }
+                    login();          
+        }else if(opt == 5){
+            system("clear");
+            printf("\n\t\tBYE BYE !!!");
+            exit(1);
+        }
         else{
             printf("\n\t\tINVALID INPUT ");
         }
@@ -88,7 +91,7 @@ void displayMenu()
 	printf("\n\t3.read Library rules");
 	printf("\n\t4.confirm Registration");
 	// printf("\n\t5.Return book");
-	printf("\n\t5.Exit\n\n\tChoose the options:_ ");
+	printf("\n\t5.Exit");
 
 
 }
@@ -96,7 +99,7 @@ void displayMenu()
 int inptDta(void){
     int num;
     char input[50];
-    printf("\n\t\tchoose an option:\t");
+    printf("\n\tchoose an option:\t");
     fgets(input,sizeof(input),stdin);
 
     //remove newline ch
