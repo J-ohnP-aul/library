@@ -67,6 +67,9 @@ int main()
 				break;
 			case 3:
 				readLibRules();
+				break;
+			default:
+				printf("\t\tINVALID INPUT");
 							
 		}
 	}while(opt);

@@ -28,23 +28,21 @@ int main()
     system("clear");
    	int opt,idSearch;
     do{
-
 		displayMenu();
 		scanf("%d",&opt);
-		
-		switch(opt)
-		{
-			case 1:
-				// system("clear");
-				printf("\e[1;1H\e[2J");//ANSI escape seq
-				// displayBook();
-				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
-				{
-					printf("\nbook %d",i+1);
-					printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
-				}	
-				break;
-			case 2:
+        if(opt == 1)
+        {   system("clear");
+            // printf("\e[1;1H\e[2J");//ANSI escape seq
+            for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
+            {
+                printf("\t\tbook %d\n",i+1);
+                printf("\t\t-------------------------------*\n");
+                printf("\t\t|book name: %s\n",books[i].name);
+                printf("\t\t|auther: %s \n",books[i].auther);
+                printf("\t\t|book id: %d\n",books[i].id);
+                printf("\t\t-------------------------------*\n\n");
+            }
+        }else if(opt == 2){
 				idSearch =  searchBook();
 				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
 				{
@@ -52,20 +50,28 @@ int main()
 					{
 						printf("Available!!");
 						printf("\nbook %d",i+1);
-						printf("\n-------------------------------*\n|book name: %s\n|auther: %s \n|book id: %d\n-------------------------------*\n", books[i].name, books[i].auther, books[i].id);
+                        printf("\t\t-------------------------------*\n");
+                        printf("\t\t|book name: %s\n",books[i].name);
+                        printf("\t\t|auther: %s \n",books[i].auther);
+                        printf("\t\t|book id: %d\n",books[i].id);
+                        printf("\t\t-------------------------------*\n\n");
 					}else{
 						continue;
 					}
 				}
-				break;
-			case 3:
+        }else if(opt == 3){
 				readLibRules();
-                break;
-            case 4:
-                login();
-							
-		}
-	}while(opt != 6);
+        }else if(opt == 4){
+                login();}           
+        // }else if(opt == 6){
+        //     printf("\n\t\tBYE BYE !!!");
+        // }
+        else{
+            printf("\n\t\tINVALID INPUT ");
+        }
+
+		
+	}while(opt != 5);
 
 }
 
@@ -78,8 +84,8 @@ void displayMenu()
 	printf("\n\t2.Search books");
 	printf("\n\t3.read Library rules");
 	printf("\n\t4.confirm Registration");
-	printf("\n\t5.Return book");
-	printf("\n\t6.Exit\n\n\tChoose the options:_ ");
+	// printf("\n\t5.Return book");
+	printf("\n\t5.Exit\n\n\tChoose the options:_ ");
 
 
 }
