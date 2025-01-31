@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
+
 
 struct book
 {
@@ -88,6 +91,32 @@ void displayMenu()
 	printf("\n\t5.Exit\n\n\tChoose the options:_ ");
 
 
+}
+
+int inptDta(void){
+    int num;
+    char input[50];
+    printf("\n\t\tchoose an option:\t");
+    fgets(input,sizeof(input),stdin);
+
+    //remove newline ch
+    input[strcspn(input, "\n")] = 0;
+
+    //check if char are digits;
+    int i;
+    for(i=0; input[i] != '\0'; i++)
+    {
+        if(!isdigit(input[i])){
+            printf("\n\t\t!!INVALID INPUT ");
+            exit(1);
+        }
+    }
+
+    // convert string to int
+    num = atoi(input);
+    // printf("you entered: %d\n",num);
+    
+    return num;
 }
 void login()
 {   
