@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<ctype.h>
+#include<ctype.h> 
 #include<string.h>
 
 
@@ -20,6 +20,7 @@ struct book soen1 = {"structProg","Benjamin", 102};
 struct book comp1 = {"OperatingSystems", "modeWaOS", 113};
 
 void displayMenu();
+void displayLoginMenu();
 int inptDta(void);
 void login();
 void readLibRules();
@@ -34,19 +35,21 @@ int main()
     do{
 		displayMenu();
 		opt = inptDta();
-        if(opt == 1)
-        {   system("clear");
-            // printf("\e[1;1H\e[2J");//ANSI escape seq
-            for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
-            {
-                printf("\t\tbook %d\n",i+1);
-                printf("\t\t-------------------------------*\n");
-                printf("\t\t|book name: %s\n",books[i].name);
-                printf("\t\t|auther: %s \n",books[i].auther);
-                printf("\t\t|book id: %d\n",books[i].id);
-                printf("\t\t-------------------------------*\n\n");
-            }
-        }else if(opt == 2){
+        switch(opt){
+            case 1:{
+                system("clear");
+                // printf("\e[1;1H\e[2J");//ANSI escape seq
+                for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
+                {
+                    printf("\t\tbook %d\n",i+1);
+                    printf("\t\t-------------------------------*\n");
+                    printf("\t\t|book name: %s\n",books[i].name);
+                    printf("\t\t|auther: %s \n",books[i].auther);
+                    printf("\t\t|book id: %d\n",books[i].id);
+                    printf("\t\t-------------------------------*\n\n");
+                }
+                break;
+            }case 2:{
 				idSearch =  searchBook();
 				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
 				{
@@ -63,43 +66,28 @@ int main()
 						continue;
 					}
 				}
-        }else if(opt == 3){
+                break;
+            }case 3:
 				readLibRules();
-        }else if(opt == 4){
-                    login();          
-        }else if(opt == 5){
-            system("clear");
-            printf("\n\t\tBYE BYE !!!");
-            exit(1);
-        }
-        else{
-            printf("\n\t\tINVALID INPUT ");
-        }
-
-		
+                break;
+            case 4:
+                login();          
+                break;
+            case 5:
+                system("clear");
+                printf("\n\t\tBYE BYE !!!");
+                exit(1);
+            default:
+                system("clear");
+                printf("\n\t\tINVALID INPUT");
+        }		
 	}while(opt != 5);
 
 }
-
-void displayMenu()
-{   
-    // system("clear");
-
-	printf("\n\t********** Welcome to library plartfom  ********");
-	printf("\n\t1.Display books");
-	printf("\n\t2.Search books");
-	printf("\n\t3.read Library rules");
-	printf("\n\t4.confirm Registration");
-	// printf("\n\t5.Return book");
-	printf("\n\t5.Exit");
-
-
-}
-
 int inptDta(void){
     int num;
     char input[50];
-    printf("\n\tchoose an option:\t");
+    printf("\n\n\tchoose an option:\t");
     fgets(input,sizeof(input),stdin);
 
     //remove newline ch
@@ -121,74 +109,104 @@ int inptDta(void){
     
     return num;
 }
+
+// >>display menus
+
+void displayMenu()
+{   
+    // system("clear");
+
+	printf("\n\t********** Welcome to library plartfom  ********");
+	printf("\n\t1.Display books");
+	printf("\n\t2.Search books");
+	printf("\n\t3.read Library rules");
+	printf("\n\t4.confirm Registration");
+	// printf("\n\t5.Return book");
+	printf("\n\t5.Exit");
+
+
+}
+void displayLoginMenu(){
+    printf("\n\t***Registerd users***\n");
+    printf("\n1\tRegister to be a member\n");
+    printf("2\tconfirm Registration\n");
+    printf("3\tExit");
+}
+
 void login()
 {   
     system("clear");
-    int response;
+    int opt;
 
     char lname[20] = {0};
     char fName[20] = {0};
     char number[20] = {0};
 
     FILE *pWrite;
-    FILE *pRead;
+    FILE *pRead;    
+    do{
+        displayLoginMenu();
+        opt = inptDta();
+        switch (opt)
+        {
+        case 1:{
+            //adding user data to database
+            system("clear");
+            printf("\nEnter first name: ");
+            scanf("%s", fName);
+            printf("\nEnter last name: ");
+            scanf("%s", lname);
+            printf("\nEnter phone number: ");
+            scanf("%s", number);
 
-    printf("\n\t***Registerd users***\n");
-    printf("\n1\tRegister to be a member\n");
-    printf("2\tconfirm Registration\n\n");
-    printf("Select an option: ");   
-
-    scanf("%d",&response);
-
-    if(response == 1)
-    {
-        //adding to file
-        printf("\nEnter first name: ");
-        scanf("%s", fName);
-        printf("\nEnter last name: ");
-        scanf("%s", lname);
-        printf("\nEnter phone number: ");
-        scanf("%s", number);
-
-        pWrite = fopen("/home/noble/Desktop/library/database/user_data.txt", "a");
-        
-        if (pWrite != NULL){
-            fprintf(pWrite, "%s %s %s\n", fName,lname,number);
-        }else{
-            // goto ErroHandler;
-            printf("unknown Error");
-        }
-        fclose(pWrite);
-    }
-    else if(response == 2){
-        //print the log book
-        pRead = fopen("/home/noble/Desktop/library/database/user_data.txt", "r");
-        
-        if(pRead != NULL){
-            printf("\nfirst.N\tlast.N\tPhone.No\n");
-            while(!feof(pRead)){
-                fscanf(pRead, "%s %s %s", fName, lname, number);
-                
-                if(!feof(pRead)){
-                    printf("\n%s\t%s\t%s", fName, lname, number);
-                }
-                printf("\n");
+            pWrite = fopen("/home/noble/Desktop/library/database/user_data.txt", "a");
+            
+            if (pWrite != NULL){
+                fprintf(pWrite, "%s %s %s\n", fName,lname,number);
+                system("clear");
+                printf("\n\tThank you %s you are signed in to the system!!\n\n",lname);
+            }else{
+                // goto ErroHandler;
+                printf("unknown Error");
             }
-        }
-        else{
-            // goto ErroHandler;
-            printf("unknown Error");
-        }
-        fclose(pRead);
-    }else{
-        printf("\nInvalid selection\n");
-    }
-    // exit(EXIT_SUCCESS);//EXIT NORMALZ
+            fclose(pWrite);
+            break;
+        }case 2:{
+            //print the login user databases
+            system("clear");
 
-    // ErroHandler:
-    // // printf("unknown Error");
-    //     perror("The following error occured");
-    //     exit(EXIT_FAILURE); //exit prog with error
+            pRead = fopen("/home/noble/Desktop/library/database/user_data.txt", "r");
+            
+            if(pRead != NULL){
+                int i = 1;
+                printf("\n>>>\nfIRST.N\t\tLAST.N\t\tPHONE.No\n");
+                while(!feof(pRead)){
+                    i++;
+                    fscanf(pRead, "%s %s %s", fName, lname, number);
+                    
+                    if(!feof(pRead)){
+                        printf("\t\n %d._%s\t\t%s\t\t%s",i, fName, lname, number);
+                    }
+                    printf("\n");
+                }
+            }
+            else{
+                // goto ErroHandler;
+                printf("unknown Error");
+            }
+            fclose(pRead);
+            break;
+        }case 3:
+            system("clear");
+            break;
+        default:
+            system("clear");
+            printf("\n\tINVALID CATEGORY!!\n\n");
+        }
+
+    }while (opt != 3);
+    
+
 }
 void readLibRules(){
     system("clear");
