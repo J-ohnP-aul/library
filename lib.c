@@ -19,19 +19,27 @@ struct book comp = {"compArchitecture", "Md_Arika", 100};
 struct book soen1 = {"structProg","Benjamin", 102};
 struct book comp1 = {"OperatingSystems", "modeWaOS", 113};
 
+void studentsite();
 void displayMenu();
 void displayLoginMenu();
-int inptDta(void);
+int inptDta(void);//int comp and error staf
+char takeInput(char ch[50]);
 void login();
 void readLibRules();
-int searchBook();
 
 
 int main()
 {   
-   	struct book books[] = {math, soen, phys, comp, soen1, comp1};
+    studentsite();
+    
+    return 0;
+
+}
+void studentsite()
+{
+    struct book books[] = {math, soen, phys, comp, soen1, comp1};
     system("clear");
-   	int opt,idSearch;
+   	int opt;
     do{
 		displayMenu();
 		opt = inptDta();
@@ -41,16 +49,20 @@ int main()
                 // printf("\e[1;1H\e[2J");//ANSI escape seq
                 for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
                 {
-                    printf("\t\tbook %d\n",i+1);
+                    printf("\n\t\tbook %d\n",i+1);
                     printf("\t\t-------------------------------*\n");
                     printf("\t\t|book name: %s\n",books[i].name);
                     printf("\t\t|auther: %s \n",books[i].auther);
                     printf("\t\t|book id: %d\n",books[i].id);
                     printf("\t\t-------------------------------*\n\n");
                 }
+                
                 break;
             }case 2:{
-				idSearch =  searchBook();
+                system("clear");
+            	printf("\n\tEnter the book id..eg soen105 id-105\n");
+                int idSearch =  inptDta();
+                int found = 0;
 				for(int i=0; i<sizeof(books)/sizeof(books[0]); i++)
 				{
 					if(idSearch == books[i].id)
@@ -62,9 +74,12 @@ int main()
                         printf("\t\t|auther: %s \n",books[i].auther);
                         printf("\t\t|book id: %d\n",books[i].id);
                         printf("\t\t-------------------------------*\n\n");
-					}else{
-						continue;
-					}
+                        found = 1;
+                        break;
+					}if(!found){
+                    system("clear");
+                    printf("\n\t\tthe book not found\n");
+                }
 				}
                 break;
             }case 3:
@@ -82,12 +97,16 @@ int main()
                 printf("\n\t\tINVALID INPUT");
         }		
 	}while(opt != 5);
-
+}
+char takeInput(char ch[50]){
+    fgets(ch,50,stdin);
+    ch[strlen(ch)-1] = 0;
+    return ch[50];
 }
 int inptDta(void){
     int num;
     char input[50];
-    printf("\n\n\tchoose an option:\t");
+    printf("\n\n\tenter a digit:___ :\t");
     fgets(input,sizeof(input),stdin);
 
     //remove newline ch
@@ -104,32 +123,28 @@ int inptDta(void){
     }
 
     // convert string to int
-    num = atoi(input);
-    // printf("you entered: %d\n",num);
-    
+    num = atoi(input);    
     return num;
 }
-
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 // >>display menus
-
 void displayMenu()
-{   
-    // system("clear");
-
+{  
 	printf("\n\t********** Welcome to library plartfom  ********");
 	printf("\n\t1.Display books");
 	printf("\n\t2.Search books");
 	printf("\n\t3.read Library rules");
-	printf("\n\t4.confirm Registration");
+	printf("\n\t4.Mark attendance");
 	// printf("\n\t5.Return book");
 	printf("\n\t5.Exit");
-
-
 }
 void displayLoginMenu(){
-    printf("\n\t***Registerd users***\n");
-    printf("\n1\tRegister to be a member\n");
-    printf("2\tconfirm Registration\n");
+    printf("\n\t***welcome to attndance rec***\n");
+    printf("\n1\tsign in at the entrance\n");
+    printf("2\tshow sign in members\n");
     printf("3\tExit");
 }
 
@@ -138,9 +153,9 @@ void login()
     system("clear");
     int opt;
 
-    char lname[20] = {0};
-    char fName[20] = {0};
-    char number[20] = {0};
+    char lname[50];
+    char fName[50];
+    char number[50];
 
     FILE *pWrite;
     FILE *pRead;    
@@ -153,11 +168,11 @@ void login()
             //adding user data to database
             system("clear");
             printf("\nEnter first name: ");
-            scanf("%s", fName);
+            takeInput(fName);
             printf("\nEnter last name: ");
-            scanf("%s", lname);
+            takeInput(lname);
             printf("\nEnter phone number: ");
-            scanf("%s", number);
+            takeInput(number);
 
             pWrite = fopen("/home/noble/Desktop/library/database/user_data.txt", "a");
             
@@ -229,13 +244,4 @@ void readLibRules(){
     
     fclose(pF);
     printf("\n\n\n*>>>Kindly abide regards johnpol<<\n");
-}
-int searchBook()
-{	
-    system("clear");
-	int id;
-	printf("\nEnter the book id..eg soen105 id-105\nenter the id:_");
-	scanf("%d",&id);
-    system("clear");
-	return id;
 }
