@@ -45,7 +45,8 @@ void readLibRules();
 
 int main()
 {   
-    studentsite();
+    // studentsite();
+    loginsite();
     
     return 0;
 
@@ -122,6 +123,8 @@ void loginsite()
                             printf("\n\t|Reg numb :\t%s",std1.regNo);
                             printf("\n\t|_________________|\n\n\n");
 
+                            studentsite();
+
                         }else{
                             printf("\n\t\tINVALID PASSWORD!!");
                         }
@@ -140,6 +143,7 @@ void loginsite()
                 printf("\n\t|_________________|");
                 break;// return 0;
             }default:
+                system("clear");
                 printf("\n\n\t\tINVALID INPUT !!");
 
         }
