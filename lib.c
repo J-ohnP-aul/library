@@ -37,7 +37,10 @@ void displaylogin();
 
 void displayMenu();
 void displayLoginMenu();
-int inptDta(void);//int comp and error staf
+int inptDta(void);
+int inptDta1(void);//int comp and error staf
+int inptDta2(void);
+void clear_input_buffer();
 char takeInput(char ch[50]);
 void login();
 void readLibRules();
@@ -61,7 +64,7 @@ void loginsite()
     do
     {   
         displaylogin();
-        opt = inptDta();
+        opt = inptDta2();
         /* code */
         switch(opt){
             case 1:{
@@ -132,7 +135,7 @@ void loginsite()
                     }
                 }
                 if(!userFound){
-                    printf("\n\t\tUSER NOT REGISTERD KINDLY REGISTER!!");
+                    printf("\n\t\tUSER NOT REGISTERD KINDLY REGISTER!!\n\n");
                 }
                 fclose(fpr);
                 break;
@@ -157,7 +160,7 @@ void studentsite()
    	int opt;
     do{
 		displayMenu();
-		opt = inptDta();
+		opt = inptDta1();
         switch(opt){
             case 1:{
                 system("clear");
@@ -206,7 +209,8 @@ void studentsite()
             case 5:
                 system("clear");
                 printf("\n\t\tBYE BYE !!!");
-                exit(1);
+                // exit(1);
+                break;
             default:
                 system("clear");
                 printf("\n\t\tINVALID INPUT");
@@ -221,25 +225,81 @@ char takeInput(char ch[50]){
 int inptDta(void){
     int num;
     char input[50];
-    printf("\n\n\tenter a digit:___ :\t");
-    fgets(input,sizeof(input),stdin);
-
-    //remove newline ch
-    input[strcspn(input, "\n")] = 0;
-
-    //check if char are digits;
-    int i;
-    for(i=0; input[i] != '\0'; i++)
-    {
-        if(!isdigit(input[i])){
-            printf("\n\t\t!!INVALID INPUT ");
-            exit(1);
+    while(1){
+        printf("\n\n\tenter a digit:___ :\t");
+        fgets(input,sizeof(input),stdin);
+        //remove newline ch
+        input[strcspn(input, "\n")] = 0;
+        //digit confirmer
+        int i;
+        for(i=0; input[i] != '\0'; i++)
+        {
+            if(!isdigit(input[i])){
+                printf("\n\t\t!!INVALID INPUT ONLY DIGITS ALLOWED!!!");
+                // clear_input_buffer();
+                break;
+            }
+        }
+        if(input[i] == '\0'){
+        // convert string to int
+        num = atoi(input);    
+        return num;
         }
     }
-
-    // convert string to int
-    num = atoi(input);    
-    return num;
+}
+int inptDta1(void){
+    int num;
+    char input[50];
+    while(1){
+        printf("\n\n\tenter a digit:___ :\t");
+        fgets(input,sizeof(input),stdin);
+        //remove newline ch
+        input[strcspn(input, "\n")] = 0;
+        //digit confirmer
+        int i;
+        for(i=0; input[i] != '\0'; i++)
+        {
+            if(!isdigit(input[i])){
+                printf("\n\t\t!!INVALID INPUT ONLY DIGITS ALLOWED!!!");
+                // clear_input_buffer();
+                system("clear");
+                displayMenu();
+                break;
+            }
+        }
+        if(input[i] == '\0'){
+        // convert string to int
+        num = atoi(input);    
+        return num;
+        }
+    }
+}
+int inptDta2(void){
+    int num;
+    char input[50];
+    while(1){
+        printf("\n\n\tenter a digit:___ :\t");
+        fgets(input,sizeof(input),stdin);
+        //remove newline ch
+        input[strcspn(input, "\n")] = 0;
+        //digit confirmer
+        int i;
+        for(i=0; input[i] != '\0'; i++)
+        {
+            if(!isdigit(input[i])){
+                printf("\n\t\t!!INVALID INPUT ONLY DIGITS ALLOWED!!!:");
+                system("clear");
+                displaylogin();
+                // clear_input_buffer();
+                break;
+            }
+        }
+        if(input[i] == '\0'){
+        // convert string to int
+        num = atoi(input);    
+        return num;
+        }
+    }
 }
 void clear_input_buffer() {
     int c;
