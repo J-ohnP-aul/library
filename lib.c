@@ -2,8 +2,14 @@
 #include<stdlib.h>
 #include<ctype.h> 
 #include<string.h>
-
-
+#define COLOR_RESET "\033[0m"
+#define COLOR_RED "\033[0;31M"
+#define COLOR_GREEN "\033[0;32m"
+#define COLOR_YELLOW "\033[0;33m"
+#define COLOR_BLUE "\033[0;34m"
+#define COLOR_MAGENTA "\033[0;35m"
+#define COLOR_CYAN "\033[0;36m"
+#define COLOR_WHITE "\033[0;37m"
 struct student
 {
     char fullName[50];
@@ -429,8 +435,8 @@ char generateUserName(char email[50],char username[50]){
     }
 }
 void displaylogin(){
-    printf("\n\t\t===========>>WELCOME TO THE SCHOOL LIBRARY system<<<============\n");
-    printf("\t\t\t1.Sign up\n");
+    printf(COLOR_BLUE"\n\t\t===========>>WELCOME TO THE SCHOOL LIBRARY system<<<============\n");
+    printf("\t\t\t1. Sign up\n");
     printf("\t\t\t2.Login\n");
     printf("\t\t\t3.Exit .");
 }
