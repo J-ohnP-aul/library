@@ -337,6 +337,7 @@ void login()
     char lname[50];
     char fName[50];
     char number[50];
+    
 
     FILE *pWrite;
     FILE *pRead;    
